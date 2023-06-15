@@ -1,7 +1,7 @@
-// import { newsCategories } from "@/lib/data";
 import { newsCategories } from "@/lib/data";
 import { Searchbar } from ".";
-import { Grid, GridItem, SimpleGrid } from "./chakra-ui";
+import { Grid, GridItem } from "./chakra-ui";
+import Link from "next/link";
 
 const WelcomeContainer = () => {
   return (
@@ -13,12 +13,16 @@ const WelcomeContainer = () => {
       <Grid templateColumns="repeat(12, 1fr)" gap={6}>
         {newsCategories?.map((category, index) => (
           <GridItem colSpan={{ base: 12, sm: 6, md: 4, lg: 2 }}>
-            <p
-              className="m-0 relative tracking-[0.2em] font-semibold"
-              key={index}
+            <Link
+              href={`/category?category=${category?.toString().toLowerCase()}`}
             >
-              {category}
-            </p>
+              <p
+                className="m-0 relative tracking-[0.2em] font-semibold"
+                key={index}
+              >
+                {category}
+              </p>
+            </Link>
           </GridItem>
         ))}
       </Grid>

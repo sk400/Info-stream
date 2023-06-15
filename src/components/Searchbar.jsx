@@ -1,7 +1,18 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import { Box, Flex, Icon, IconButton, Input, Spacer } from "./chakra-ui";
 import { AiOutlineSearch } from "react-icons/ai";
+import { useState } from "react";
 
 const Searchbar = () => {
+  const [searchTerm, setsearchTerm] = useState("");
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push(`/search?searchTerm=${searchTerm}`);
+  };
+
   return (
     <Flex
       sx={{
@@ -20,6 +31,8 @@ const Searchbar = () => {
         variant="filled"
         bgColor="white"
         focusBorderColor="white"
+        value={searchTerm}
+        onChange={(e) => setsearchTerm(e.target.value)}
         sx={{
           "&:hover": {
             bgColor: "white",
@@ -34,6 +47,7 @@ const Searchbar = () => {
             bgColor: "white",
           },
         }}
+        onClick={handleClick}
       >
         <Icon
           sx={{

@@ -18,6 +18,8 @@ import {
   Modal,
   Toast,
   Heading,
+  HStack,
+  Tooltip,
 } from "@chakra-ui/react";
 
 export {
@@ -38,4 +40,6 @@ export {
   Modal,
   Toast,
   Heading,
+  HStack,
+  Tooltip,
 };
