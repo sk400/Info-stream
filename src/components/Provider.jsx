@@ -2,11 +2,14 @@
 
 import { CacheProvider } from "@chakra-ui/next-js";
 import { ChakraProvider } from "@chakra-ui/react";
+import { SessionProvider } from "next-auth/react";
 
-const Provider = ({ children }) => {
+const Provider = ({ children, session }) => {
   return (
     <CacheProvider>
-      <ChakraProvider>{children}</ChakraProvider>
+      <ChakraProvider>
+        <SessionProvider session={session}> {children}</SessionProvider>
+      </ChakraProvider>
     </CacheProvider>
   );
 };
