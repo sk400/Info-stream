@@ -7,7 +7,7 @@ const CategorisedNews = async ({ searchParams: { category } }) => {
 
   const allNews = data?.value;
 
-  return <NewsCards allNews={allNews} />;
+  return <NewsCards allNews={allNews} category={category} />;
 };
 
 export default CategorisedNews;
