@@ -20,6 +20,12 @@ import {
   Heading,
   HStack,
   Tooltip,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Text,
 } from "@chakra-ui/react";
 
 export {
@@ -42,4 +48,10 @@ export {
   Heading,
   HStack,
   Tooltip,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  Text,
 };

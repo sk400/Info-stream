@@ -1,6 +1,6 @@
 export default {
-  name: "readLatterPost",
-  title: "Read latter post",
+  name: "favoriteNews",
+  title: "Favorite news",
   type: "document",
   fields: [
     {
@@ -16,10 +16,12 @@ export default {
     {
       name: "mainImage",
       title: "Main image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
+      type: "string",
+    },
+    {
+      name: "userId",
+      title: "UserId",
+      type: "string",
     },
     {
       name: "publishedAt",
@@ -39,10 +41,7 @@ export default {
     {
       name: "providerImage",
       title: "Provider image",
-      type: "image",
-      options: {
-        hotspot: true,
-      },
+      type: "string",
     },
   ],
 };

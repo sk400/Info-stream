@@ -12,14 +12,11 @@ const WelcomeContainer = () => {
 
       <Grid templateColumns="repeat(12, 1fr)" gap={6}>
         {newsCategories?.map((category, index) => (
-          <GridItem colSpan={{ base: 12, sm: 6, md: 4, lg: 2 }}>
+          <GridItem colSpan={{ base: 12, sm: 6, md: 4, lg: 2 }} key={index}>
             <Link
               href={`/category?category=${category?.toString().toLowerCase()}`}
             >
-              <p
-                className="m-0 relative tracking-[0.2em] font-semibold"
-                key={index}
-              >
+              <p className="m-0 relative tracking-[0.2em] font-semibold">
                 {category}
               </p>
             </Link>

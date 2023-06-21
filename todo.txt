@@ -1,0 +1,17 @@
+like 
+-------------
+problem - duplicate document creation
+solution - uuid generation on each newsCard
+
+
+
+
+
+
+
+
+
+Extract summary
+sign out
+image
+remove from reading list and remove from favorites

@@ -3,7 +3,7 @@ const baseUrl = "https://bing-news-search1.p.rapidapi.com";
 export const fetchNews = async () => {
   try {
     const response = await fetch(
-      `${baseUrl}/news?safeSearch=Strict&textFormat=Raw`,
+      `${baseUrl}/news?count=50&safeSearch=Strict&textFormat=Raw`,
       {
         method: "GET",
         headers: {
@@ -22,10 +22,10 @@ export const fetchNews = async () => {
   }
 };
 
-export const getSearchedNews = async (searchTerm) => {
+export const getSearchedNews = async (searchTerm, isDynamic) => {
   try {
     const response = await fetch(
-      `${baseUrl}/news/search?q=${searchTerm}&count=20&freshness=Day&textFormat=Raw&safeSearch=Strict`,
+      `${baseUrl}/news/search?q=${searchTerm}&count=50&freshness=Day&textFormat=Raw&safeSearch=Strict`,
       {
         method: "GET",
         headers: {
@@ -33,7 +33,7 @@ export const getSearchedNews = async (searchTerm) => {
           "X-RapidAPI-Key": process.env.RAPID_API_KEY,
           "X-RapidAPI-Host": "bing-news-search1.p.rapidapi.com",
         },
-        next: { revalidate: 86400 },
+        next: isDynamic ? { revalidate: 0 } : { revalidate: 86400 },
       }
     );
 

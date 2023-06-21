@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  Avatar,
-  Flex,
-  HStack,
-  Heading,
-  Icon,
-  IconButton,
-  Spacer,
-  Tooltip,
-} from "./chakra-ui";
+import { Avatar, Flex, HStack, Heading, Icon, Spacer } from "./chakra-ui";
 
 import { AiFillLike, AiFillRead } from "react-icons/ai";
 import { MdSummarize } from "react-icons/md";
@@ -17,10 +8,102 @@ import { BiLinkExternal } from "react-icons/bi";
 
 import ReactTimeago from "react-timeago";
 import Link from "next/link";
+import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { useToast } from "@chakra-ui/react";
+import { Feedback } from ".";
 
-const NewsCard = ({ imageIds, propBoxSizing, news }) => {
-  const event = new Date("2023-06-15T09:12:01.0000000Z");
+const NewsCard = ({ propBoxSizing, news }) => {
+  const event = new Date(news?.datePublished);
   const timeInUtc = event.toUTCString();
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isInReadingList, setIsInReadingList] = useState(false);
+  const { data: session } = useSession();
+  const toast = useToast();
+
+  const addToFavorites = async () => {
+    if (session.user.id) {
+      try {
+        const response = await fetch("/api/news/favorites", {
+          method: "POST",
+
+          body: JSON.stringify({
+            userId: session?.user?.id,
+            newsArticle: news,
+          }),
+        });
+
+        if (response.ok) {
+          toast({
+            title: "Added to favorites successfully.",
+            position: "top-right",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        toast({
+          title: "Some error occured.",
+          position: "top-right",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } else {
+      toast({
+        title: "Please sign in first for personalised experience.",
+        position: "top-right",
+        status: "warning",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const addToReadLater = async () => {
+    if (session.user.id) {
+      try {
+        const response = await fetch("/api/news/reading-list", {
+          method: "POST",
+
+          body: JSON.stringify({
+            userId: session?.user?.id,
+            newsArticle: news,
+          }),
+        });
+
+        if (response.ok) {
+          toast({
+            title: "Added to reading list successfully.",
+            position: "top-right",
+            status: "success",
+            duration: 5000,
+            isClosable: true,
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        toast({
+          title: "Some error occured.",
+          position: "top-right",
+          status: "error",
+          duration: 5000,
+          isClosable: true,
+        });
+      }
+    } else {
+      toast({
+        title: "Please sign in first for personalised experience.",
+        position: "top-right",
+        status: "warning",
+        duration: 9000,
+        isClosable: true,
+      });
+    }
+  };
 
   return (
     <div
@@ -46,16 +129,7 @@ const NewsCard = ({ imageIds, propBoxSizing, news }) => {
             {news?.provider[0]?.name}
           </p>
         </div>
-        {/* <Icon
-          sx={{
-            w: "10px",
-            h: "10px",
-            mb: 1,
-            display: { base: "none", sm: "block" },
-          }}
-        >
-          <RxDotFilled />
-        </Icon> */}
+
         <p className="m-0 relative font-medium text-dimgray text-sm">
           <ReactTimeago date={timeInUtc} />
         </p>
@@ -76,16 +150,46 @@ const NewsCard = ({ imageIds, propBoxSizing, news }) => {
           w: "100%",
         }}
       >
-        <HStack spacing={5}>
-          {/* Favorites */}
-          <Icon as={AiFillLike} color="gray.400" boxSize={6} />
+        {session?.user?.id && (
+          <HStack spacing={5}>
+            {/* Favorites */}
+            <Icon
+              as={AiFillLike}
+              color="gray.400"
+              boxSize={6}
+              onClick={() => {
+                addToFavorites();
+                toast({
+                  title: "Adding to favorites.",
+                  position: "top-right",
+                  status: "success",
+                  duration: 3000,
+                  isClosable: true,
+                });
+              }}
+            />
 
-          {/* Reading list */}
-          <Icon as={AiFillRead} color="gray.400" boxSize={6} />
+            {/* Reading list */}
+            <Icon
+              as={AiFillRead}
+              color="gray.400"
+              boxSize={6}
+              onClick={() => {
+                addToReadLater();
+                toast({
+                  title: "Adding to reading list.",
+                  position: "top-right",
+                  status: "success",
+                  duration: 3000,
+                  isClosable: true,
+                });
+              }}
+            />
 
-          {/* Extract */}
-          <Icon as={MdSummarize} color="gray.400" boxSize={6} />
-        </HStack>
+            {/* Extract */}
+            <Icon as={MdSummarize} color="gray.400" boxSize={6} />
+          </HStack>
+        )}
         <Spacer />
         <Link href={news?.url} target="_blank">
           <Icon as={BiLinkExternal} color="gray.400" boxSize={6} />

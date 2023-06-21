@@ -1,6 +1,6 @@
 export default {
-  name: "summarizedPost",
-  title: "Summarized post",
+  name: "summarizedNews",
+  title: "Summarized news",
   type: "document",
   fields: [
     {
