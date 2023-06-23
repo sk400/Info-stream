@@ -29,7 +29,7 @@ const handler = NextAuth({
     async signIn({ profile }) {
       try {
         const doc = {
-          _id: uuidv4(),
+          _id: profile?.sub,
           name: profile?.name,
           image: profile?.picture,
           email: profile?.email,
@@ -50,3 +50,6 @@ const handler = NextAuth({
 });
 
 export { handler as GET, handler as POST };
+
+// 106829652355987934316
+// 106829652355987934316

@@ -11,3 +11,4 @@ export { default as TimePublished } from "./TimePublished";
 export { default as Feedback } from "./Feedback";
 export { default as SelectedNews } from "./SelectedNews";
 export { default as SelectedNewsCard } from "./SelectedNewsCard";
+export { default as ProfilePageNavbar } from "./ProfilePageNavbar";

@@ -1,5 +1,6 @@
-import { ProfileInfo, UserChoosenNews } from "@/components";
+import { ProfileInfo, ProfilePageNavbar, UserChoosenNews } from "@/components";
 import { client } from "../../../../../sanity/lib/client";
+
 import {
   userDetailsQuery,
   userFavoriteNews,
@@ -24,9 +25,15 @@ const ProfilePage = async ({ params: { id } }) => {
   const [favoriteNews, readingList] = await Promise.all(promises);
 
   return (
-    <div className="relative bg-gray w-full  flex flex-col py-[60px] px-0 box-border items-center justify-center ">
-      <ProfileInfo userInfo={userInfo} />
-      <UserChoosenNews favoriteNews={favoriteNews} readingList={readingList} />
+    <div className="bg-gray w-full">
+      <ProfilePageNavbar />
+      <div className="   flex flex-col py-[60px] px-0 box-border items-center justify-center ">
+        <ProfileInfo userInfo={userInfo} />
+        <UserChoosenNews
+          favoriteNews={favoriteNews}
+          readingList={readingList}
+        />
+      </div>
     </div>
   );
 };

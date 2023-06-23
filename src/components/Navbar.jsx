@@ -10,7 +10,7 @@ const Navbar = () => {
   const { data: session } = useSession();
   const [providers, setProviders] = useState([]);
 
-  // console.log(session);
+  console.log(session);
 
   useEffect(() => {
     const setupProviders = async () => {
@@ -27,15 +27,7 @@ const Navbar = () => {
         Buletin
       </h1>
 
-      {session?.user ? (
-        <Link href={`/profile/${session?.user?.id}`}>
-          <img
-            className="relative rounded-31xl w-[55px] h-[55px] overflow-hidden shrink-0 object-cover sm:w-10 sm:h-10 "
-            alt=""
-            src={session?.user?.image}
-          />
-        </Link>
-      ) : (
+      {!session && (
         <>
           {Object?.values(providers)?.map((provider) => (
             <Button
@@ -59,6 +51,16 @@ const Navbar = () => {
             </Button>
           ))}
         </>
+      )}
+
+      {session?.user && (
+        <Link href={`/profile/${session?.user?.id}`}>
+          <img
+            className="relative rounded-31xl w-[55px] h-[55px] overflow-hidden shrink-0 object-cover sm:w-10 sm:h-10 "
+            alt=""
+            src={session?.user?.image}
+          />
+        </Link>
       )}
     </nav>
   );

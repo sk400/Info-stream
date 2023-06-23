@@ -1,17 +1,16 @@
-like 
+like  and readlatter
 -------------
 problem - duplicate document creation
 solution - uuid generation on each newsCard
 
-
-
-
-
-
-
-
+image
 
 Extract summary
-sign out
-image
+
+
+
+
 remove from reading list and remove from favorites
+
+
+
