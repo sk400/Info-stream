@@ -219,7 +219,7 @@ const NewsCard = ({ propBoxSizing, news, favoriteNews, readLatterNews }) => {
                   toast({
                     title: "Adding to favorites.",
                     position: "top-right",
-                    status: "success",
+                    status: "info",
                     duration: 3000,
                     isClosable: true,
                   });
@@ -241,7 +241,7 @@ const NewsCard = ({ propBoxSizing, news, favoriteNews, readLatterNews }) => {
                   toast({
                     title: "Adding to reading list.",
                     position: "top-right",
-                    status: "success",
+                    status: "info",
                     duration: 3000,
                     isClosable: true,
                   });

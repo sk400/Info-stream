@@ -44,3 +44,19 @@ export const allFavoriteNewsQuery = groq`
 export const allReadingListNewsQuery = groq`
 *[_type == 'readLatterNews']
 `;
+
+export const getAFavoriteNewsQuery = (docId, userId) => {
+  const query = groq`
+  *[_type == 'favoriteNews' && _id == '${docId}' && userId == '${userId}']
+  `;
+
+  return query;
+};
+
+export const getAReadLatterNewsQuery = (docId, userId) => {
+  const query = groq`
+  *[_type == 'readLatterNews' && _id == '${docId}' && userId == '${userId}']
+  `;
+
+  return query;
+};
