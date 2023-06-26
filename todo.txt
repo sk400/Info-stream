@@ -12,5 +12,5 @@ Extract summary
 
 remove from reading list and remove from favorites
 
-
-
+modal for unFavorite
+updating the toast using a state

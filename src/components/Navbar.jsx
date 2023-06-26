@@ -10,7 +10,7 @@ const Navbar = () => {
   const { data: session } = useSession();
   const [providers, setProviders] = useState([]);
 
-  console.log(session);
+  // console.log(session);
 
   useEffect(() => {
     const setupProviders = async () => {

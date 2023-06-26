@@ -18,30 +18,40 @@ const UserChoosenNews = async ({ favoriteNews, readingList }) => {
         p: { base: 2, sm: 5, md: 10, lg: 10 },
       }}
     >
-      {favoriteNews?.length > 0 && readingList?.length > 0 ? (
-        <Tabs variant="soft-rounded" colorScheme="cyan">
-          <TabList>
-            <Tab>
-              <Text>Favorites</Text>
-            </Tab>
-            <Tab>
-              <Text>Reading list</Text>
-            </Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel>
+      <Tabs variant="soft-rounded" colorScheme="cyan">
+        <TabList>
+          <Tab>
+            <Text>Favorites</Text>
+          </Tab>
+          <Tab>
+            <Text>Reading list</Text>
+          </Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            {favoriteNews?.length > 0 ? (
               <SelectedNews title="Favorite" allNews={favoriteNews} />
-            </TabPanel>
-            <TabPanel>
+            ) : (
+              <>
+                <Text>
+                  You have not any favorite news yet. You can add in home page.{" "}
+                </Text>
+              </>
+            )}
+          </TabPanel>
+          <TabPanel>
+            {readingList?.length > 0 ? (
               <SelectedNews title="Reading list" allNews={readingList} />
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      ) : (
-        <>
-          <Heading>You have not any favorite news yet.</Heading>
-        </>
-      )}
+            ) : (
+              <>
+                <Text>
+                  You have not any favorite news yet. You can add in home page.{" "}
+                </Text>
+              </>
+            )}
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </Box>
   );
 };

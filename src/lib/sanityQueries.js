@@ -36,3 +36,11 @@ export const userReadingList = (userId) => {
 
   return query;
 };
+
+export const allFavoriteNewsQuery = groq`
+*[_type == 'favoriteNews']
+`;
+
+export const allReadingListNewsQuery = groq`
+*[_type == 'readLatterNews']
+`;

@@ -8,22 +8,66 @@ import { BiLinkExternal } from "react-icons/bi";
 
 import ReactTimeago from "react-timeago";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
 import { Feedback } from ".";
+import { userFavoriteNews, userReadingList } from "@/lib/sanityQueries";
+import { client } from "../../sanity/lib/client";
 
-const NewsCard = ({ propBoxSizing, news }) => {
+const NewsCard = ({ propBoxSizing, news, favoriteNews, readLatterNews }) => {
   const event = new Date(news?.datePublished);
   const timeInUtc = event.toUTCString();
   const [isFavorite, setIsFavorite] = useState(false);
   const [isInReadingList, setIsInReadingList] = useState(false);
+  const [isAddingToFavorites, setIsAddingToFavorites] = useState(false);
+  const [isAddingToNewsList, setIsAddingToNewsList] = useState(false);
   const { data: session } = useSession();
   const toast = useToast();
+  // Check if already in favorites
+  const checkFavorites = () => {
+    if (favoriteNews?.length !== 0) {
+      const alreadyInFavorites = favoriteNews?.find(
+        (item) =>
+          item?.title === news?.name &&
+          item?.description === news?.description &&
+          item?.provider === news?.provider[0]?.name &&
+          item?.publishedAt === news?.datePublished &&
+          item?.providerImage ===
+            news?.provider[0]?.image?.thumbnail?.contentUrl
+      );
 
+      if (alreadyInFavorites) {
+        setIsFavorite(true);
+      }
+    }
+  };
+
+  // Check if already in reading list
+
+  const checkReadingList = () => {
+    if (readLatterNews?.length !== 0) {
+      const alreadyInReadingList = readLatterNews?.find(
+        (item) =>
+          item?.title === news?.name &&
+          item?.description === news?.description &&
+          item?.provider === news?.provider[0]?.name &&
+          item?.publishedAt === news?.datePublished &&
+          item?.providerImage ===
+            news?.provider[0]?.image?.thumbnail?.contentUrl
+      );
+
+      if (alreadyInReadingList) {
+        setIsInReadingList(true);
+      }
+    }
+  };
+
+  // Add to favorites
   const addToFavorites = async () => {
     if (session.user.id) {
       try {
+        // setIsAddingToFavorites(true);
         const response = await fetch("/api/news/favorites", {
           method: "POST",
 
@@ -34,6 +78,7 @@ const NewsCard = ({ propBoxSizing, news }) => {
         });
 
         if (response.ok) {
+          // setIsAddingToFavorites(false);
           toast({
             title: "Added to favorites successfully.",
             position: "top-right",
@@ -41,6 +86,7 @@ const NewsCard = ({ propBoxSizing, news }) => {
             duration: 5000,
             isClosable: true,
           });
+          // window.location.reload();
         }
       } catch (error) {
         console.log(error);
@@ -62,6 +108,7 @@ const NewsCard = ({ propBoxSizing, news }) => {
       });
     }
   };
+  // Remove from favorites
 
   const addToReadLater = async () => {
     if (session.user.id) {
@@ -104,6 +151,11 @@ const NewsCard = ({ propBoxSizing, news }) => {
       });
     }
   };
+
+  useEffect(() => {
+    checkFavorites();
+    checkReadingList();
+  }, [favoriteNews, readLatterNews]);
 
   return (
     <div
@@ -153,41 +205,52 @@ const NewsCard = ({ propBoxSizing, news }) => {
         {session?.user?.id && (
           <HStack spacing={5}>
             {/* Favorites */}
-            <Icon
-              as={AiFillLike}
-              color="gray.400"
-              boxSize={6}
-              onClick={() => {
-                addToFavorites();
-                toast({
-                  title: "Adding to favorites.",
-                  position: "top-right",
-                  status: "success",
-                  duration: 3000,
-                  isClosable: true,
-                });
-              }}
-            />
+
+            {isFavorite ? (
+              <Icon as={AiFillLike} color="cyan.400" boxSize={6} />
+            ) : (
+              <Icon
+                as={AiFillLike}
+                color="gray.400"
+                boxSize={6}
+                onClick={() => {
+                  addToFavorites();
+
+                  toast({
+                    title: "Adding to favorites.",
+                    position: "top-right",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                  });
+                }}
+              />
+            )}
 
             {/* Reading list */}
-            <Icon
-              as={AiFillRead}
-              color="gray.400"
-              boxSize={6}
-              onClick={() => {
-                addToReadLater();
-                toast({
-                  title: "Adding to reading list.",
-                  position: "top-right",
-                  status: "success",
-                  duration: 3000,
-                  isClosable: true,
-                });
-              }}
-            />
+
+            {isInReadingList ? (
+              <Icon as={AiFillRead} color="cyan.400" boxSize={6} />
+            ) : (
+              <Icon
+                as={AiFillRead}
+                color="gray.400"
+                boxSize={6}
+                onClick={() => {
+                  addToReadLater();
+                  toast({
+                    title: "Adding to reading list.",
+                    position: "top-right",
+                    status: "success",
+                    duration: 3000,
+                    isClosable: true,
+                  });
+                }}
+              />
+            )}
 
             {/* Extract */}
-            <Icon as={MdSummarize} color="gray.400" boxSize={6} />
+            {/* <Icon as={MdSummarize} color="gray.400" boxSize={6} /> */}
           </HStack>
         )}
         <Spacer />
