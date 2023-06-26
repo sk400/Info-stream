@@ -10,7 +10,9 @@ const Searchbar = () => {
   const router = useRouter();
 
   const handleClick = () => {
-    router.push(`/search?searchTerm=${searchTerm}`);
+    if (searchTerm) {
+      router.push(`/search?searchTerm=${searchTerm}`);
+    }
   };
 
   return (
