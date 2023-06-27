@@ -1,21 +1,14 @@
 "use client";
-import { Box, Flex, Icon, Spacer } from "@/components/chakra-ui";
+import { Flex, Icon, Spacer } from "@/components/chakra-ui";
 import { AiFillHome } from "react-icons/ai";
 import { MdLogout } from "react-icons/md";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 const ProfilePageNavbar = () => {
   const { data: session } = useSession();
   const router = useRouter();
-
-  // useEffect(() => {
-  //   if (!session?.user) {
-  //     router?.replace("/");
-  //   }
-  // }, [session?.user?.id]);
 
   return (
     <Flex

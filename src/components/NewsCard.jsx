@@ -3,7 +3,7 @@
 import { Avatar, Flex, HStack, Heading, Icon, Spacer } from "./chakra-ui";
 
 import { AiFillLike, AiFillRead } from "react-icons/ai";
-import { MdSummarize } from "react-icons/md";
+
 import { BiLinkExternal } from "react-icons/bi";
 
 import ReactTimeago from "react-timeago";
@@ -11,19 +11,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useToast } from "@chakra-ui/react";
-import { Feedback } from ".";
-import { userFavoriteNews, userReadingList } from "@/lib/sanityQueries";
-import { client } from "../../sanity/lib/client";
 
 const NewsCard = ({ propBoxSizing, news, favoriteNews, readLatterNews }) => {
   const event = new Date(news?.datePublished);
   const timeInUtc = event.toUTCString();
   const [isFavorite, setIsFavorite] = useState(false);
   const [isInReadingList, setIsInReadingList] = useState(false);
-  const [isAddingToFavorites, setIsAddingToFavorites] = useState(false);
-  const [isAddingToNewsList, setIsAddingToNewsList] = useState(false);
+
   const { data: session } = useSession();
   const toast = useToast();
+
   // Check if already in favorites
   const checkFavorites = () => {
     if (favoriteNews?.length !== 0) {

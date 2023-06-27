@@ -7,7 +7,7 @@ const WelcomeContainer = () => {
   return (
     <div className="self-stretch rounded-xl bg-whitesmoke overflow-hidden flex flex-col py-[45px] px-[124px]  items-center justify-start gap-[100px] text-center  text-black font-poppins lg:pl-[70px] lg:pr-[70px] lg:box-border sm:pl-2.5 sm:pr-2.5 sm:box-border">
       <h2 className="m-0 self-stretch relative text-[inherit] tracking-[0.3em] font-semibold font-inherit text-7xl">
-        WELCOME TO BULETIN
+        WELCOME TO INFOSTREAM
       </h2>
 
       <Grid templateColumns="repeat(12, 1fr)" gap={6}>

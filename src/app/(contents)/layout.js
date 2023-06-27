@@ -1,10 +1,9 @@
 import { Footer, Navbar, Provider, WelcomeContainer } from "@/components";
 import "../globals.css";
-// import { Inter } from "next/font/google";
 
 export const metadata = {
-  title: "newsAI",
-  description: "A web application for learning about the new things faster.",
+  title: "Info stream",
+  description: "Info stream: Your gateway to knowledge.",
 };
 
 export default function RootLayout({ children }) {

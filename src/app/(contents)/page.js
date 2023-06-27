@@ -18,7 +18,7 @@ export default async function Home() {
   const [allFavoriteNews, allReadingListNews] = await Promise.all(promises);
 
   return (
-    <div className="">
+    <div>
       <NewsCards
         allNews={allNews}
         allFavoriteNews={allFavoriteNews}
