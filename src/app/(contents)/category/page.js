@@ -7,7 +7,7 @@ import {
 import React from "react";
 import { client } from "../../../../sanity/lib/client";
 
-export const revalidate = 10;
+export const revalidate = 60;
 
 const CategorisedNews = async ({ searchParams: { category } }) => {
   const data = await getSearchedNews(category?.toString(), false);

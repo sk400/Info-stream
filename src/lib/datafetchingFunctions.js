@@ -11,7 +11,7 @@ export const fetchNews = async () => {
           "X-RapidAPI-Key": process.env.RAPID_API_KEY,
           "X-RapidAPI-Host": "bing-news-search1.p.rapidapi.com",
         },
-        next: { revalidate: 10 },
+        next: { revalidate: 60 },
       }
     );
 
@@ -34,7 +34,7 @@ export const getSearchedNews = async (searchTerm, isDynamic) => {
             "X-RapidAPI-Key": process.env.RAPID_API_KEY,
             "X-RapidAPI-Host": "bing-news-search1.p.rapidapi.com",
           },
-          next: isDynamic ? { revalidate: 0 } : { revalidate: 10 },
+          next: isDynamic ? { revalidate: 0 } : { revalidate: 60 },
         }
       );
 
