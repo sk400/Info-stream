@@ -6,6 +6,8 @@ import {
   allReadingListNewsQuery,
 } from "@/lib/sanityQueries";
 
+export const revalidate = 10;
+
 export default async function Home() {
   const data = await fetchNews();
   const allNews = data?.value;

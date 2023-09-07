@@ -24,7 +24,9 @@ const Navbar = () => {
 
   return (
     <nav className="self-stretch flex flex-row items-center justify-between text-left text-15xl text-black font-inter pt-4">
-      <Image src="/logo.png" alt="Infostream logo" width="150" height="25" />
+      <Link href="/">
+        <Image src="/logo.png" alt="Infostream logo" width="150" height="25" />
+      </Link>
 
       {!session && (
         <>
