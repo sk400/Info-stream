@@ -11,7 +11,7 @@ const SelectedNews = ({ title, allNews }) => {
 
       <Grid templateColumns="repeat(12, 1fr)" gap={6}>
         {allNews.map((news, index) => (
-          <GridItem colSpan={{ base: 12, sm: 12, md: 6 }} key={index}>
+          <GridItem colSpan={{ base: 12, sm: 12, md: 6 }} key={news._id}>
             <SelectedNewsCard propBoxSizing="border-box" news={news} />
           </GridItem>
         ))}
